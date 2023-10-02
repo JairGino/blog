@@ -1,8 +1,6 @@
 package com.example.blog.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -21,9 +19,9 @@ public class Post {
     @Size(min = 5, max = 100, message = "O atributo title deve conter no mínimo 10 e no máximo 1000 caracteres")
     private String title;
 
-    @NotBlank(message = "O atributo postText é Obrigatório!")
-    @Size(min = 10, max = 1000, message = "O atributo postText deve conter no mínimo 10 e no máximo 1000 caracteres")
-    private String postText;
+    @NotBlank(message = "O atributo text é Obrigatório!")
+    @Size(min = 10, max = 1000, message = "O atributo text deve conter no mínimo 10 e no máximo 1000 caracteres")
+    private String text;
 
     @UpdateTimestamp
     private LocalDateTime publishDate;
@@ -45,11 +43,11 @@ public class Post {
     }
 
     public String getText() {
-        return postText;
+        return text;
     }
 
-    public void setText(String postText) {
-        this.postText = postText;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public LocalDateTime getDate() {
