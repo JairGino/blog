@@ -1,5 +1,6 @@
 package com.example.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -26,6 +27,10 @@ public class Post {
     @UpdateTimestamp
     private LocalDateTime publishDate;
 
+    @ManyToOne
+    @JsonIgnoreProperties("post")
+    private Topic topic;
+
     public Long getId() {
         return id;
     }
@@ -50,11 +55,19 @@ public class Post {
         this.text = text;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDateTime getPublishDate() {
         return publishDate;
     }
 
-    public void setDate(LocalDateTime publishDate) {
+    public void setPublishDate(LocalDateTime publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 }
