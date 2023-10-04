@@ -2,6 +2,7 @@ package com.example.blog.controller;
 
 import com.example.blog.model.Post;
 import com.example.blog.repository.PostRepository;
+import com.example.blog.repository.TopicRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,12 @@ import java.util.Optional;
 @RequestMapping("/posts")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class PostController {
+
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private TopicRepository topicRepository;
 
     @GetMapping
     public ResponseEntity<List<Post>> getAll() {
@@ -38,16 +43,25 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(postRepository.save(post));
+        if (topicRepository.existsById(post.getTopic().getId()))
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(postRepository.save(post));
+
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Topic não existe!", null);
     }
 
     @PutMapping
     public ResponseEntity<Post> updatePost(@Valid @RequestBody Post post) {
-        return postRepository.findById(post.getId())
-                .map(response -> ResponseEntity.status(HttpStatus.OK)
-                        .body(postRepository.save(post)))
-                .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+        if (postRepository.existsById(post.getId())) {
+
+            if (topicRepository.existsById(post.getTopic().getId()))
+                return postRepository.findById(post.getId())
+                        .map(response -> ResponseEntity.status(HttpStatus.OK)
+                                .body(postRepository.save(post)))
+                        .orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Topic não existe!", null);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
