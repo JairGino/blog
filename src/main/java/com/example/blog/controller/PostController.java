@@ -42,7 +42,7 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@Valid @RequestBody Post post) {
+    public ResponseEntity<Post> createPost(@RequestBody @Valid Post post) {
         if (topicRepository.existsById(post.getTopic().getId()))
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(postRepository.save(post));

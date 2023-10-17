@@ -19,7 +19,7 @@ public class Topic {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "topic", cascade = CascadeType.REMOVE)
     @JsonIgnoreProperties("topic")
-    private List<Post> post;
+    private List<Post> posts;
 
     public Long getId() {
         return id;
@@ -37,11 +37,11 @@ public class Topic {
         this.name = name;
     }
 
-    public List<Post> getPost() {
-        return post;
+    public List<Post> getPosts() {
+        return posts;
     }
 
-    public void setPost(List<Post> post) {
-        this.post = post;
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }

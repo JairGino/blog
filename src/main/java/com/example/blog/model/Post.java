@@ -3,6 +3,7 @@ package com.example.blog.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -28,8 +29,13 @@ public class Post {
     private LocalDateTime publishDate;
 
     @ManyToOne
-    @JsonIgnoreProperties("post")
+    @JsonIgnoreProperties("posts")
     private Topic topic;
+
+//    @NotNull
+    @ManyToOne
+    @JsonIgnoreProperties("posts")
+    private User user;
 
     public Long getId() {
         return id;
@@ -69,5 +75,13 @@ public class Post {
 
     public void setTopic(Topic topic) {
         this.topic = topic;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
