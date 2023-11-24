@@ -69,7 +69,7 @@ public class UserService {
                 // Preenche o Objeto usuarioLogin com os dados encontrados
                 userLogin.get().setId(foundUser.get().getId());
                 userLogin.get().setName(foundUser.get().getName());
-                userLogin.get().setUrlPhoto(foundUser.get().getPhotoUrl());
+                userLogin.get().setPhotoUrl(foundUser.get().getPhotoUrl());
                 userLogin.get().setToken(generateToken(userLogin.get().getEmail()));
                 userLogin.get().setPassword("");
 

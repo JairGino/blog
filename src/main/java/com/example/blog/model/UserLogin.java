@@ -6,7 +6,7 @@ public class UserLogin {
     private String name;
     private String email;
     private String password;
-    private String urlPhoto;
+    private String photoUrl;
     private String token;
 
     public Long getId() {
@@ -41,12 +41,12 @@ public class UserLogin {
         this.password = password;
     }
 
-    public String getUrlPhoto() {
-        return urlPhoto;
+    public String getPhotoUrl() {
+        return photoUrl;
     }
 
-    public void setUrlPhoto(String urlPhoto) {
-        this.urlPhoto = urlPhoto;
+    public void setPhotoUrl(String photoUrl) {
+        this.photoUrl = photoUrl;
     }
 
     public String getToken() {
